@@ -34,9 +34,9 @@ class QuestionsController < ApplicationController
     question.destroy
     redirect_to question_path
   end
-  
+
   private
-  
+
   def question
     @question ||= params[:id] ? Question.find(params[:id]) : Question.new
   end
