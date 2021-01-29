@@ -1,2 +1,6 @@
 h1= @question.title
 p= @question.body
+
+div= render partial: '/answers/answer', collection: @question.answers
+
+div= render 'answers/form'
