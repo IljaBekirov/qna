@@ -27,10 +27,14 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to @question
+    if current_user.author_of?(@question)
+      if @question.update(question_params)
+        redirect_to @question
+      else
+        render :edit
+      end
     else
-      render :edit
+      redirect_to questions_path, error: 'You are not author of this question'
     end
   end
 
@@ -39,7 +43,7 @@ class QuestionsController < ApplicationController
       @question.destroy
       redirect_to questions_path, notice: 'Your question successfully deleted!'
     else
-      redirect_to questions_path, error: 'You are not author of this answer'
+      redirect_to questions_path, error: 'You are not author of this question'
     end
   end
 
