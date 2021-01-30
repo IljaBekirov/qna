@@ -17,6 +17,16 @@ class AnswersController < ApplicationController
     end
   end
 
+  def destroy
+    @answer = Answer.find(params[:id])
+    if current_user.author_of?(@answer)
+      @answer.destroy
+      redirect_to @answer.question, notice: 'Your answer successfully deleted!'
+    else
+      render 'questions/show', error: "You are not author of this answer"
+    end
+  end
+
   private
 
   def find_question
