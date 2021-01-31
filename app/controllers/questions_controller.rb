@@ -20,7 +20,8 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.new(question_params)
 
     if @question.save
-      redirect_to @question, notice: 'Your question successfully created.'
+      flash[:notice] = 'Your question successfully created.'
+      redirect_to @question
     else
       render :new
     end
@@ -29,21 +30,26 @@ class QuestionsController < ApplicationController
   def update
     if current_user.author_of?(@question)
       if @question.update(question_params)
+        flash[:notice] = 'Your answer is updated'
         redirect_to @question
       else
+        flash[:error] = 'Question is not updated'
         render :edit
       end
     else
-      redirect_to questions_path, error: 'You are not author of this question'
+      flash[:error] = 'You are not author of this question'
+      redirect_to questions_path
     end
   end
 
   def destroy
     if current_user.author_of?(@question)
       @question.destroy
-      redirect_to questions_path, notice: 'Your question successfully deleted!'
+      flash[:notice] = 'Your question successfully deleted!'
+      redirect_to questions_path
     else
-      redirect_to questions_path, error: 'You are not author of this question'
+      flash[:error] = 'You are not author of this question'
+      redirect_to questions_path
     end
   end
 

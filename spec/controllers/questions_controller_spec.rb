@@ -84,6 +84,7 @@ RSpec.describe QuestionsController, type: :controller do
       it 'assigns the requested question to @question' do
         patch :update, params: { id: question, question: attributes_for(:question) }
 
+        expect(flash[:notice]).to eq 'Your answer is updated'
         expect(assigns(:question)).to eq question
       end
 
@@ -104,7 +105,9 @@ RSpec.describe QuestionsController, type: :controller do
 
     context 'with invalid attributes' do
       before { patch :update, params: { id: question, question: attributes_for(:question, :invalid) } }
+
       it 'does not change question' do
+        expect(flash[:error]).to eq 'Question is not updated'
         question.reload
 
         expect(question.title).to eq 'Title of question'
@@ -122,6 +125,7 @@ RSpec.describe QuestionsController, type: :controller do
       it 'tries update at another user' do
         patch :update, params: { id: question, question: attributes_for(:question) }
 
+        expect(flash[:error]).to eq 'You are not author of this question'
         expect(response).to redirect_to questions_path
       end
     end
@@ -129,15 +133,31 @@ RSpec.describe QuestionsController, type: :controller do
 
   describe 'DELETE #destroy' do
     let!(:question) { create(:question) }
-    before { login(question.user) }
 
-    it 'deletes the question' do
-      expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
+    context 'own question' do
+      before { login(question.user) }
+
+      it 'deletes the question' do
+        expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
+      end
+
+      it 'redirects to index' do
+        delete :destroy, params: { id: question }
+
+        expect(flash[:notice]).to eq 'Your question successfully deleted!'
+        expect(response).to redirect_to questions_path
+      end
     end
 
-    it 'redirects to index' do
-      delete :destroy, params: { id: question }
-      expect(response).to redirect_to questions_path
+    context "another's question" do
+      before { login(users.last) }
+
+      it 'show error flash and redirect to questions' do
+        delete :destroy, params: { id: question }
+
+        expect(flash[:error]).to eq 'You are not author of this question'
+        expect(response).to redirect_to questions_path
+      end
     end
   end
 end
