@@ -17,18 +17,20 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if current_user.author_of?(@answer)
-      if @answer.update(answer_params)
-        flash[:notice] = 'Your answer is updated'
-        redirect_to question_path(@answer.question)
-      else
-        flash[:error] = 'Answer is not updated'
-        render :edit
-      end
-    else
-      flash[:error] = 'You are not author of this answer'
-      render 'questions/show'
-    end
+    @answer.update(answer_params)
+    @question = @answer.question
+    # if current_user.author_of?(@answer)
+    #   if @answer.update(answer_params)
+    #     flash[:notice] = 'Your answer is updated'
+    #     redirect_to question_path(@answer.question)
+    #   else
+    #     flash[:error] = 'Answer is not updated'
+    #     render :edit
+    #   end
+    # else
+    #   flash[:error] = 'You are not author of this answer'
+    #   render 'questions/show'
+    # end
   end
 
   def destroy

@@ -55,25 +55,28 @@ RSpec.describe AnswersController, type: :controller do
 
       context 'with valid attributes' do
         it 'changes answer attributes' do
-          patch :update, params: { id: answer, answer: { body: 'new body' }, question_id: question }
+          patch :update, params: { id: answer, answer: { body: 'new body' }, question_id: question },
+                format: :js
 
-          expect(flash[:notice]).to eq 'Your answer is updated'
+          # expect(flash[:notice]).to eq 'Your answer is updated'
           answer.reload
           expect(answer.body).to eq 'new body'
         end
 
         it 'redirect to updated question' do
-          patch :update, params: { id: answer, answer: { body: 'new body' }, question_id: question }
+          patch :update, params: { id: answer, answer: { body: 'new body' }, question_id: question },
+                format: :js
 
-          expect(response).to redirect_to question_path(answer.question)
+          expect(response).to render_template :update
         end
       end
 
       context 'with not valid attribute' do
         it "doesn't change answer" do
-          patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid), question_id: question }
+          patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid), question_id: question },
+                format: :js
 
-          expect(flash[:error]).to eq 'Answer is not updated'
+          # expect(flash[:error]).to eq 'Answer is not updated'
           answer.reload
           expect(answer.body).to eq answer.body
         end
@@ -82,7 +85,8 @@ RSpec.describe AnswersController, type: :controller do
       context 'authenticated user trying to change another answer' do
         before do
           login(users.second)
-          patch :update, params: { id: answer, answer: { body: 'new body' }, question_id: question }
+          patch :update, params: { id: answer, answer: { body: 'new body' }, question_id: question },
+                format: :js
         end
 
         it 'does not change answer' do
@@ -91,7 +95,7 @@ RSpec.describe AnswersController, type: :controller do
         end
 
         it 're-renders edit view' do
-          expect(flash[:error]).to eq 'You are not author of this answer'
+          # expect(flash[:error]).to eq 'You are not author of this answer'
         end
       end
     end
