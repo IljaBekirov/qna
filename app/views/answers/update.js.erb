@@ -1,3 +1,5 @@
+$('.alert').html("<%= flash['alert'] %>")
+$('.notice').html("<%= flash['notice'] %>")
 $('.answer-errors').html("<%= render 'shared/errors', resource: @answer %>");
 
 <% unless @answer.errors.present? %>

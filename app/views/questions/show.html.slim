@@ -10,4 +10,5 @@ p= @question.body
 .answer-errors
   =render 'shared/errors', resource: @answer
 
-div= render 'answers/form'
+- if current_user
+  div= render 'answers/form'
