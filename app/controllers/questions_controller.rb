@@ -14,7 +14,9 @@ class QuestionsController < ApplicationController
     @question = Question.new
   end
 
-  def edit; end
+  def edit
+    @question = Question.find(params[:id]) if current_user.author_of?(@question)
+  end
 
   def create
     @question = current_user.questions.new(question_params)

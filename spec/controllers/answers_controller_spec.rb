@@ -22,7 +22,8 @@ RSpec.describe AnswersController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not save the answer' do
-        expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }, format: :js }
+        expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question },
+                      format: :js }
           .to_not change(Answer, :count)
       end
 
@@ -39,13 +40,14 @@ RSpec.describe AnswersController, type: :controller do
     before { login(users.first) }
 
     it 'delete the answer' do
-      expect { delete :destroy, params: { question_id: question, id: answer } }.to change(Answer, :count).by(-1)
+      expect { delete :destroy, params: { question_id: question, id: answer }, format: :js }
+        .to change(Answer, :count).by(-1)
     end
 
     it 'redirected to the question' do
-      delete :destroy, params: { question_id: question, id: answer }
+      delete :destroy, params: { question_id: question, id: answer }, format: :js
 
-      expect(response).to redirect_to question_path(question)
+      expect(response).to render_template :destroy
     end
   end
 

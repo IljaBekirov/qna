@@ -1,9 +1,10 @@
+hr
 h5= 'Answer a question'
 
 = form_with(model: [@question, @answer], class: 'new-answer', local: false) do |f|
   = render 'shared/errors', resource: @answer
   p
     = f.label :body
-    = f.text_area :body
+    = f.text_area :body, class: 'form-control'
   .actions
     = f.submit 'Answer'
