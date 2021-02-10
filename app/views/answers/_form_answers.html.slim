@@ -1,0 +1,19 @@
+.card-body
+  = content_tag :p, resources.body, class: "card-text"
+  br
+  - if current_user
+    div.text-right
+      - if current_user&.author_of?(@question)
+        = link_to mark_as_best_answer_path(resources), class: "btn btn-outline-success", id: "best_#{resources.id}", method: :patch, remote: true do
+          i.fas.fa-thumbs-up
+      - if current_user.author_of?(resources)
+        = link_to '#', class: 'btn btn-outline-warning edit-answer-link', data: { answer_id: resources.id } do
+          i.fas.fa-edit
+          '  Edit
+        = link_to answer_path(resources), method: :delete, class: 'btn btn-outline-danger', remote: true do
+          i.far.fa-trash-alt
+          '  Delete
+    = form_with model: resources, class: 'hidden', html: { id: "edit-answer-#{resources.id}" }, local: false do |f|
+      = f.label :body, 'Your answer'
+      = f.text_area :body, class: 'form-control'
+      = f.submit 'Save', class: 'btn btn-outline-success'

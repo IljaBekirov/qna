@@ -9,7 +9,7 @@ feature 'User can delete only his own answer' do
     scenario 'delete his own answer', js: true do
       sign_in(users.first)
       visit question_path(question)
-      click_on 'Delete answer'
+      find(:css, 'i.far.fa-trash-alt').click
 
       expect(page).to_not have_content answer.body
       expect(page).to have_content question.title
@@ -20,13 +20,13 @@ feature 'User can delete only his own answer' do
       sign_in(users.last)
       visit question_path(question)
 
-      expect(page).to_not have_link 'Delete answer'
+      expect(page).to_not have_link 'Delete'
     end
   end
 
   scenario 'Unauthenticated user tries to delete answer' do
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete answer'
+    expect(page).to_not have_link 'Delete'
   end
 end

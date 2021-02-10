@@ -3,6 +3,7 @@ FactoryBot.define do
     title { "Title of question" }
     body { "Body of question" }
     user
+    best_answer_id { nil }
 
     trait :invalid do
       title { nil }
