@@ -1,7 +1,0 @@
-- if @other_answers.present?
-  - @other_answers.map do |answer|
-    = content_tag :div, id: "answer_#{answer.id}", class: 'mt-3'
-      .row
-        .col-sm-12
-          .card
-            = render 'answers/form_answers', resources: answer

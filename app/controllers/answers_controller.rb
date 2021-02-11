@@ -2,6 +2,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: %i[create destroy update edit mark_as_best]
   before_action :find_question, only: [:create]
   before_action :find_answer, only: %i[show destroy update mark_as_best edit]
+  before_action :load_answers, only: %i[create update]
 
   def show; end
 
@@ -12,7 +13,6 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
-    answers
     respond_to do |format|
       if @answer.save
         format.js { flash[:notice] = 'Your answer successfully created.' }
@@ -23,8 +23,6 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @question = @answer.question
-    answers
     if current_user.author_of?(@answer)
       respond_to do |format|
         if @answer.update(answer_params)
@@ -46,14 +44,15 @@ class AnswersController < ApplicationController
   def mark_as_best
     @question = @answer.question
     @question.mark_as_best(@answer) if current_user.author_of?(@question)
-    answers
+    load_answers
   end
 
   private
 
-  def answers
-    @best_answer = @question.answers.where(id: @question.best_answer_id)
-    @other_answers = @question.answers.where.not(id: @question.best_answer_id)
+  def load_answers
+    @question ||= @answer.question
+    @best_answer ||= @question.best_answer
+    @other_answers ||= @question.other_answers
   end
 
   def find_question

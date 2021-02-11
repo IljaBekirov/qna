@@ -3,5 +3,5 @@ $('.notice').html("<%= flash['notice'] %>")
 $('.answer-errors').html("<%= render 'shared/errors', resource: @answer %>");
 
 <% unless @answer.errors.present? %>
-  $('.answers').html('<%= j render 'answers/best_answer', resource: @best_answer.first %>' + '<%= j render 'answers/answer', collection: @other_answers %>');
+$('.answers').html('<%= j render 'answers/answers', best_answer: @best_answer, other_answers: @other_answers %>');
 <% end %>

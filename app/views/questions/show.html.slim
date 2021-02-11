@@ -5,8 +5,7 @@ p= @question.body
   p= link_to 'Delete question', question_path(@question), method: :delete, class: 'btn btn-danger'
 hr
 .answers
-  = render 'answers/best_answer', resource: @best_answer
-  = render 'answers/answer', collection: @other_answers
+  = render 'answers/answers', best_answer: @best_answer, other_answers: @other_answers
 
 .answer-errors
   =render 'shared/errors', resource: @answer

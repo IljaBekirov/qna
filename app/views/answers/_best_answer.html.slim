@@ -1,6 +1,0 @@
-- if resource.present?
-  = content_tag :div, id: "answer_#{resource.id}", class: 'mt-3'
-    .row
-      .col-sm-12
-        .best_answer
-          = render 'answers/form_answers', resources: resource
