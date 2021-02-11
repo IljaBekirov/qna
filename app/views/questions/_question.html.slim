@@ -6,6 +6,9 @@
         p= question.body
 
         div.text-right
+          small= "answers: "
+          small.font-weight-bold= question.answers.count
+        div.text-right
           small.font-italic= "created by: #{question.user.email}"
         div.text-right
           small.font-italic= question.created_at.strftime("at: %d.%m.%Y")
