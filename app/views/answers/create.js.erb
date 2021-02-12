@@ -1,0 +1,9 @@
+$('.alert').html("<%= flash['alert'] %>")
+$('.notice').html("<%= flash['notice'] %>")
+$('.answer-errors').html("<%= render 'shared/errors', resource: @answer %>");
+
+<% if @answer.persisted? %>
+  $('.answers').html('<%= j render 'answers/answers', best_answer: @best_answer, other_answers: @other_answers %>');
+  $('.new-answer #answer_body').val('');
+<% end %>
+

@@ -3,7 +3,12 @@ p= @question.body
 
 - if current_user&.author_of?(@question)
   p= link_to 'Delete question', question_path(@question), method: :delete, class: 'btn btn-danger'
+hr
+.answers
+  = render 'answers/answers', best_answer: @best_answer, other_answers: @other_answers
 
-div= render partial: '/answers/answer', collection: @question.answers
+.answer-errors
+  =render 'shared/errors', resource: @answer
 
-div= render 'answers/form'
+- if current_user
+  div= render 'answers/form'

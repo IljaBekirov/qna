@@ -10,7 +10,7 @@ feature 'User can create answer' do
       visit question_path(question)
     end
 
-    scenario 'answer the question' do
+    scenario 'answer the question', js: true  do
       fill_in 'Body', with: 'Answer a question'
       click_on 'Answer'
 
@@ -20,17 +20,16 @@ feature 'User can create answer' do
       expect(page).to have_content question.body
     end
 
-    scenario 'answer the question with error' do
+    scenario 'answer the question with error', js: true do
       click_on 'Answer'
 
       expect(page).to have_content "Body can't be blank"
     end
   end
 
-  scenario 'Unauthenticated user tries to answer the question' do
+  scenario 'Unauthenticated user tries to answer the question', js: true do
     visit question_path(question)
-    click_on 'Answer'
 
-    expect(page).to have_content 'You need to sign in or sign up before continuing.'
+    expect(page).to have_no_content 'Answer'
   end
 end

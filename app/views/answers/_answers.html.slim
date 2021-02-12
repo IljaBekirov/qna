@@ -1,0 +1,13 @@
+- if best_answer.present?
+  = content_tag :div, id: "answer_#{best_answer.id}", class: 'mt-3'
+    .row
+      .col-sm-12
+        .best_answer
+          = render 'answers/body_answers', resources: best_answer
+- if other_answers.present?
+  - other_answers.map do |answer|
+    = content_tag :div, id: "answer_#{answer.id}", class: 'mt-3'
+      .row
+        .col-sm-12
+          .card
+            = render 'answers/body_answers', resources: answer

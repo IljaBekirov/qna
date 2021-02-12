@@ -1,4 +1,15 @@
-p= question.title
-p= question.body
+.row
+  .col-sm-12
+    .card
+      .card-body
+        h3= link_to question.title, question_path(question)
+        p= question.body
 
-p= link_to 'Show', question_path(question)
+        div.text-right
+          small= "answers: "
+          small.font-weight-bold= question.answers.count
+        div.text-right
+          small.font-italic= "created by: #{question.user.email}"
+        div.text-right
+          small.font-italic= question.created_at.strftime("at: %d.%m.%Y")
+br

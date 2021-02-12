@@ -6,12 +6,11 @@ feature 'User can delete only his own answer' do
   given!(:answer) { create(:answer, question: question, user: users.first) }
 
   describe 'Authenticated user' do
-    scenario 'delete his own answer' do
+    scenario 'delete his own answer', js: true do
       sign_in(users.first)
       visit question_path(question)
-      click_on 'Delete answer'
+      find(:css, 'i.far.fa-trash-alt').click
 
-      expect(page).to have_content 'Your answer successfully deleted!'
       expect(page).to_not have_content answer.body
       expect(page).to have_content question.title
       expect(page).to have_content question.body
@@ -21,13 +20,13 @@ feature 'User can delete only his own answer' do
       sign_in(users.last)
       visit question_path(question)
 
-      expect(page).to_not have_link 'Delete answer'
+      expect(page).to_not have_link 'Delete'
     end
   end
 
   scenario 'Unauthenticated user tries to delete answer' do
     visit question_path(question)
 
-    expect(page).to_not have_link 'Delete answer'
+    expect(page).to_not have_link 'Delete'
   end
 end
