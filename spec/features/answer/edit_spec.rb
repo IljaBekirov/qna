@@ -30,15 +30,13 @@ feature 'User can edit his answer' do
         end
       end
 
-      # i dont now, why not working ?!
-      # scenario 'edits his answer with error', js: true do
-      #   within'.answers' do
-      #     fill_in 'Your answer', with: ''
-      #     click_on 'Save'
-      #
-      #     expect(page).to have_content "Body can't be blank"
-      #   end
-      # end
+      scenario 'edits his answer with error', js: true do
+        within '.answers' do
+          fill_in 'Your answer', with: ''
+          click_on 'Save'
+        end
+        expect(page).to have_content "Body can't be blank"
+      end
     end
 
     scenario "tries to edit other user's question" do
