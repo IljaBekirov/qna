@@ -6,5 +6,9 @@ h5= 'Answer a question'
   p
     = f.label :body
     = f.text_area :body, class: 'form-control'
+  p
+    = f.label :files
+    br
+    = f.file_field :files, multiple: true
   .actions
     = f.submit 'Answer'
