@@ -1,0 +1,28 @@
+= form_with(model:  @question, local: true) do |form|
+  .card-body
+    = render 'shared/errors', resource: @question
+    div
+      = form.label :title
+      = form.text_field :title, class: 'form-control'
+    div
+      br
+      = form.label :body
+      = form.text_area :body, class: 'form-control'
+
+    div.text-right
+      - if @question.files.attached?
+        br
+        ' Файлы:
+        - @question.files.each do |file|
+          div
+            small= link_to file.filename.to_s, url_for(file)
+    div
+      br
+      = form.label :files
+      = form.file_field :files, class: 'form-control-file', multiple: true
+      -if form.object.files.attached?
+        - form.object.files.each do |file|
+          = form.hidden_field :files, value: file.signed_id, multiple: true
+      br
+      div
+        = form.submit 'Update', class: "actions btn  btn-sm btn-success"
