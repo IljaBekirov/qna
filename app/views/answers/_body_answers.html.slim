@@ -1,10 +1,8 @@
 .card-body
   = content_tag :p, resources.body, class: "card-text"
   br
-  - if resources.files.attached?
-    - resources.files.each do |file|
-      div.text-right
-        small= link_to file.filename.to_s, url_for(file)
+  div.text-right
+    = render partial: 'files/file', locals: { resources: resources, action_edit: false }
 
   - if current_user
     br
@@ -22,12 +20,16 @@
     = form_with model: resources, class: 'hidden', html: { id: "edit-answer-#{resources.id}" }, local: false do |f|
       = f.label :body, 'Your answer'
       = f.text_area :body, class: 'form-control'
+      div.text-right
+        = render partial: 'files/file', locals: { resources: resources, action_edit: true }
+
       div
         br
         = f.label :files
         = f.file_field :files, class: 'form-control-file', multiple: true
         - if f.object.files.attached?
           - f.object.files.each do |file|
-            = f.hidden_field :files, value: file.signed_id, multiple: true
+            div { id="attachment_#{file.id}" }
+              = f.hidden_field :files, value: file.signed_id, multiple: true
       br
       = f.submit 'Save', class: 'btn btn-outline-success'

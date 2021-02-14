@@ -5,6 +5,8 @@ class Question < ApplicationRecord
 
   has_many_attached :files
 
+  default_scope -> { order(created_at: :desc) }
+
   validates :title, :body, presence: true
 
   def mark_as_best(answer)

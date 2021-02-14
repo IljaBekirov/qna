@@ -1,0 +1,4 @@
+var collection = document.querySelectorAll('#<%= dom_id(@file) %>');
+for (let i = 0; i < collection.length; i ++) {
+  collection[i].remove();
+}

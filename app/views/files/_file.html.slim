@@ -1,0 +1,14 @@
+- if resources.files.attached?
+  br
+    small
+      ' Файлы:
+  - resources.files.each do |file|
+    div { id="attachment_#{file.id}" }
+      small
+        = link_to file.filename.to_s, url_for(file)
+        - if current_user&.author_of?(resources)
+          - if action_edit
+            = link_to file_path(file.id), method: :delete, data: { confirm: 'Are you sure?'}, remote: true,
+                    id: "delete_file_#{file.id}" do
+              | &nbsp;
+              i.fas.fa-times

@@ -10,19 +10,15 @@
       = form.text_area :body, class: 'form-control'
 
     div.text-right
-      - if @question.files.attached?
-        br
-        ' Файлы:
-        - @question.files.each do |file|
-          div
-            small= link_to file.filename.to_s, url_for(file)
+      = render partial: 'files/file', locals: { resources: @question, action_edit: true }
     div
       br
       = form.label :files
       = form.file_field :files, class: 'form-control-file', multiple: true
       -if form.object.files.attached?
         - form.object.files.each do |file|
-          = form.hidden_field :files, value: file.signed_id, multiple: true
+          div { id="attachment_#{file.id}" }
+            = form.hidden_field :files, value: file.signed_id, multiple: true
       br
       div
         = form.submit 'Update', class: "actions btn  btn-sm btn-success"
