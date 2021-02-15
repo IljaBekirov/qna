@@ -4,6 +4,12 @@ p= @question.body
 div.text-right
   = render partial: 'files/file', locals: { resources: @question, action_edit: false }
 
+.links
+  p Links
+  ul
+    - @question.links.each do |link|
+      li= link_to link.name, link.url
+
 - if current_user&.author_of?(@question)
   br
   div.text-right
