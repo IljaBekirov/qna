@@ -1,3 +1,22 @@
 // Place all the styles related to the Questions controller here.
 // They will automatically be included in application.scss.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+#answer-count {
+  position: absolute;
+  border-radius: 10px;
+  width: 5%;
+  font-weight: bold;
+  border-width: 1px;
+  border-style: dashed;
+  border-color: darkgray;
+}
+
+#best-answer {
+  background-color: #5eba7d;
+  position: absolute;
+  border-radius: 10px;
+  width: 5%;
+  font-weight: bold;
+  color: white;
+}

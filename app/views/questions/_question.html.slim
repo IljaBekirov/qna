@@ -5,9 +5,19 @@
         h3= link_to question.title, question_path(question)
         p= question.body
 
-        div.text-right
-          small= "answers: "
-          small.font-weight-bold= question.answers.count
+        - if question.best_answer.blank?
+          div.text-center#answer-count
+            div
+              small.font-weight-bold= question.answers.count
+            div
+              small= "answers"
+        - else
+          div.text-center#best-answer
+            div
+              small.font-weight-bold= question.answers.count
+            div
+              small= "answers"
+
         div.text-right
           small.font-italic= "created by: #{question.user.email}"
         div.text-right
