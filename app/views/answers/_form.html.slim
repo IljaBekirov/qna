@@ -6,6 +6,15 @@ h5= 'Answer a question'
   p
     = f.label :body
     = f.text_area :body, class: 'form-control'
+  p Links:
+  p
+    = f.fields_for :links do |link|
+      p
+        = link.label :name, 'Link name'
+        = link.text_field :name
+      p
+        = link.label :url
+        = link.text_field :url
   p
     = f.label :files
     br
