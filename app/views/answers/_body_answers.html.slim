@@ -1,12 +1,13 @@
 .card-body
   = content_tag :p, resources.body, class: "card-text"
   br
-  div.text-right
+  div
     .links
       p Links
       ul
         - resources.links.each do |link|
           li= link_to link.name, link.url
+  div.text-right
     = render partial: 'files/file', locals: { resources: resources, action_edit: false }
 
   - if current_user
@@ -22,19 +23,25 @@
         = link_to answer_path(resources), method: :delete, class: 'btn btn-outline-danger btn-sm', remote: true do
           i.far.fa-trash-alt
           '  Delete
-    = form_with model: resources, class: 'hidden', html: { id: "edit-answer-#{resources.id}" }, local: false do |f|
-      = f.label :body, 'Your answer'
-      = f.text_area :body, class: 'form-control'
+    = form_with model: resources, class: 'hidden', html: { id: "edit-answer-#{resources.id}" }, local: false do |form|
+      = form.label :body, 'Your answer'
+      = form.text_area :body, class: 'form-control'
       div.text-right
         = render partial: 'files/file', locals: { resources: resources, action_edit: true }
+      br
+      row
+        = form.fields_for :links do |link|
+          = render 'shared/link_fields', f: link
+        .links
+          = link_to_add_association 'add link', form, :links, partial: 'shared/link_fields', class: 'btn btn-sm btn-success btn-block'
 
       div
         br
-        = f.label :files
-        = f.file_field :files, class: 'form-control-file', multiple: true
-        - if f.object.files.attached?
-          - f.object.files.each do |file|
+        = form.label :files
+        = form.file_field :files, class: 'form-control-file', multiple: true
+        - if form.object.files.attached?
+          - form.object.files.each do |file|
             div { id="attachment_#{file.id}" }
-              = f.hidden_field :files, value: file.signed_id, multiple: true
+              = form.hidden_field :files, value: file.signed_id, multiple: true
       br
-      = f.submit 'Save', class: 'btn btn-outline-success'
+      = form.submit 'Save', class: 'btn btn-outline-success'
