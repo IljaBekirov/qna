@@ -2,11 +2,7 @@
   = content_tag :p, resources.body, class: "card-text"
   br
   div
-    .links
-      p Links
-      ul
-        - resources.links.each do |link|
-          li= link_to link.name, link.url
+    = render partial: 'shared/link', locals: { resources: resources }
   div.text-right
     = render partial: 'files/file', locals: { resources: resources, action_edit: false }
 
