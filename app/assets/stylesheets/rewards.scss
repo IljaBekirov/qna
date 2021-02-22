@@ -1,0 +1,28 @@
+// Place all the styles related to the Rewards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.reward .card {
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.reward .card-body {
+  padding: 10px;
+}
+
+.reward .card-title {
+  width: 15%;
+  margin: auto;
+}
+
+.reward .card-text {
+  width: 83%;
+  margin: 10px;
+}
+
+#card-body div{
+  display: inline-block;
+  vertical-align: top;
+  padding: 10px;
+}

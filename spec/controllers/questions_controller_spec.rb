@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
   let(:users) { create_list(:user, 2) }
   let(:question) { create(:question, user: users.first) }
+  let(:reward) { create(:reward, question: question) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
@@ -53,6 +54,10 @@ RSpec.describe QuestionsController, type: :controller do
 
     it 'renders new view' do
       expect(response).to render_template :new
+    end
+
+    it 'assigns the reward to @question' do
+      expect(assigns(:question).reward).to be_a_new(Reward)
     end
   end
 

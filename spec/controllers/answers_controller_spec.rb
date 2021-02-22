@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe AnswersController, type: :controller do
   let!(:users) { create_list(:user, 2) }
   let!(:question) { create(:question, user: users.first) }
+  let!(:reward) { create(:reward, question: question, user: users.first) }
   let(:answer) { create(:answer, question: question, user: users.first) }
 
   describe 'POST #create' do
