@@ -11,6 +11,8 @@
     br
     = render 'shared/create_at', resources: resources
       br
+    div.text-right
+      br
       - if current_user&.author_of?(@question) && @question.best_answer != resources
         = link_to mark_as_best_answer_path(resources), class: "btn btn-outline-success btn-sm", id: "best_#{resources.id}", method: :patch, remote: true do
           i.fas.fa-thumbs-up

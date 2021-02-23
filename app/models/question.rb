@@ -15,8 +15,10 @@ class Question < ApplicationRecord
   validates :title, :body, presence: true
 
   def mark_as_best(answer)
-    update(best_answer: answer)
-    reward.update!(user: answer.user)
+    transaction do
+      update!(best_answer: answer)
+      reward.update!(user: answer.user)
+    end
   end
 
   def other_answers
