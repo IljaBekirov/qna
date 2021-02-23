@@ -18,8 +18,5 @@
             div
               small= "answers"
 
-        div.text-right
-          small.font-italic= "created by: #{question.user.email}"
-        div.text-right
-          small.font-italic= question.created_at.strftime("at: %d.%m.%Y")
+        = render 'shared/create_at', resources: question
 br

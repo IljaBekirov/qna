@@ -1,15 +1,17 @@
 .card-body
   = content_tag :p, resources.body, class: "card-text"
-  br
-  div
-    = render partial: 'shared/link', locals: { resources: resources }
+  - unless resources.links.blank?
+    br
+    div
+      = render partial: 'shared/link', locals: { resources: resources }
   div.text-right
     = render partial: 'files/file', locals: { resources: resources, action_edit: false }
 
   - if current_user
     br
-    div.text-right
-      - if current_user&.author_of?(@question)
+    = render 'shared/create_at', resources: resources
+      br
+      - if current_user&.author_of?(@question) && @question.best_answer != resources
         = link_to mark_as_best_answer_path(resources), class: "btn btn-outline-success btn-sm", id: "best_#{resources.id}", method: :patch, remote: true do
           i.fas.fa-thumbs-up
       - if current_user.author_of?(resources)
