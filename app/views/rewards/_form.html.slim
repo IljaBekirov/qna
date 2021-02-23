@@ -1,0 +1,9 @@
+.nested-fields
+  .field
+    = r.label :title, 'Title reward'
+    = r.text_field :title, class: 'form-control'
+  br
+  .field
+    = r.label :image
+    = r.file_field :image
+  = link_to_remove_association "remove reward", r, class: 'btn btn-sm btn-danger btn-block'

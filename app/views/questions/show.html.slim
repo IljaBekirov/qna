@@ -4,6 +4,15 @@ p= @question.body
 div.text-right
   = render partial: 'files/file', locals: { resources: @question, action_edit: false }
 
+- unless @question.links.blank?
+  hr
+  = render partial: 'shared/link', locals: { resources: @question }
+
+- unless @question.reward.blank?
+  hr
+  ' Reward:
+  p= @question.reward.title
+
 - if current_user&.author_of?(@question)
   br
   div.text-right

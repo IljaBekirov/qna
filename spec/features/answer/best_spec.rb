@@ -7,6 +7,7 @@ feature 'User can mark best answer' do
   given!(:question_with_best_answer) { create(:question, user: users.first, best_answer_id: answer.id) }
   given!(:second_answer) { create(:answer, question: question, user: users.first) }
   given!(:best_answer) { question_with_best_answer.best_answer }
+  given!(:reward) { create(:reward, question: question, user: users.first) }
   let(:top_answer) { page.find(:css, 'div.best_answer') }
 
   describe 'Authenticated user' do

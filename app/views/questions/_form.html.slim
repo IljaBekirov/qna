@@ -8,7 +8,18 @@
       br
       = form.label :body
       = form.text_area :body, class: 'form-control'
-
+    br
+    div
+      .reward
+        ' Reward
+        = form.fields_for :reward do |reward|
+          = render 'rewards/form', r: reward
+    br
+    row
+      = form.fields_for :links do |link|
+        = render 'shared/link_fields', f: link
+      .links
+        = link_to_add_association 'add link', form, :links, partial: 'shared/link_fields', class: 'btn btn-sm btn-success btn-block'
     div.text-right
       = render partial: 'files/file', locals: { resources: @question, action_edit: true }
     div

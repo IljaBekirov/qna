@@ -10,10 +10,13 @@ class QuestionsController < ApplicationController
     @best_answer = @question.best_answer
     @other_answers = @question.answers.where.not(id: @question.best_answer_id)
     @answer = Answer.new
+    @answer.links.new
   end
 
   def new
     @question = Question.new
+    @question.links.new # .build
+    @question.build_reward
   end
 
   def edit
@@ -64,6 +67,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body, files: [])
+    params.require(:question).permit(:title, :body, files: [], links_attributes: %i[id name url _destroy done],
+                                                    reward_attributes: %i[id title image])
   end
 end

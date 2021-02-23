@@ -1,0 +1,7 @@
+.links
+  p Links
+  ul
+    - resources.links.each do |link|
+      li= link_to link.name, link.url
+      - if link.gist?
+        = javascript_include_tag link.url+".js"

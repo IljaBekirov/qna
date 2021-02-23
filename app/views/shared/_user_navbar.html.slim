@@ -2,8 +2,11 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-info
   a.navbar-brand href="#" StackOverFlow
   #navbarSupportedContent.collapse.navbar-collapse
     ul.navbar-nav.mr-auto
-      li.nav-item.active
-        = link_to 'Home', questions_path, class: 'nav-link'
+      li.nav-item
+        = link_to 'Questions', questions_path, class: 'nav-link'
+      - if current_user
+        li.nav-item
+          = link_to "Rewards", rewards_path, class: 'nav-link'
     .form-inline.my-2.my-lg-0
       - if user_signed_in?
         = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary ml-2 mr-2'
