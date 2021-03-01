@@ -4,6 +4,8 @@
     br
     div
       = render partial: 'shared/link', locals: { resources: resources }
+  div
+    = render 'shared/vote', resource: resources
   div.text-right
     = render partial: 'files/file', locals: { resources: resources, action_edit: false }
 
