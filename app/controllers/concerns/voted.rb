@@ -17,7 +17,7 @@ module Voted
   end
 
   def vote_cancel
-    @votable.cancel_vote_of(current_user) if @votable.votes.map(&:user_id).include?(current_user.id)
+    @votable.cancel_vote_of(current_user) if Vote.where(votable: @votable).exists?(user: current_user)
     render_json
   end
 
