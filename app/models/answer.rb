@@ -1,11 +1,11 @@
 class Answer < ApplicationRecord
+  include Linkable
+  include Votable
+
   belongs_to :question
-  has_many :links, dependent: :destroy, as: :linkable
   belongs_to :user
 
   has_many_attached :files
-
-  accepts_nested_attributes_for :links, reject_if: :all_blank, allow_destroy: true
 
   default_scope -> { order(created_at: :desc) }
 

@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  include Voted
+
   before_action :authenticate_user!, only: %i[create destroy update edit mark_as_best]
   before_action :find_question, only: [:create]
   before_action :find_answer, only: %i[show destroy update mark_as_best edit]

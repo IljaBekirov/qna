@@ -1,22 +1,30 @@
-.row
+div[id="question_#{question.id}"]
   .col-sm-12
     .card
       .card-body
-        h3= link_to question.title, question_path(question)
-        p= question.body
-
-        - if question.best_answer.blank?
-          div.text-center#answer-count
+        .row
+          .col-1
+            div.text-center.question-row.vote
+              = render 'shared/vote', resource: question
+          .col-11
             div
-              small.font-weight-bold= question.answers.count
-            div
-              small= "answers"
-        - else
-          div.text-center#best-answer
-            div
-              small.font-weight-bold= question.answers.count
-            div
-              small= "answers"
-
-        = render 'shared/create_at', resources: question
+              h3= link_to question.title, question_path(question)
+              p= question.body
+        .row
+          .col-1
+            - if question.best_answer.blank?
+              div.text-center#answer-count
+                div
+                  small.font-weight-bold= question.answers.count
+                div
+                  small= "answers"
+            - else
+              div.text-center#best-answer
+                div
+                  small.font-weight-bold= question.answers.count
+                div
+                  small= "answers"
+          .col-11
+            div[style="position: absolute; right: 15px" ]
+              = render 'shared/create_at', resources: question
 br
