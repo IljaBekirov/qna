@@ -5,7 +5,7 @@ div[id="question_#{question.id}"]
         .row
           .col-1
             div.text-center.question-row.vote
-              = render 'shared/vote', resource: question
+              = render 'shared/vote', resource: question, current_user: current_user
           .col-11
             div
               h3= link_to question.title, question_path(question)
