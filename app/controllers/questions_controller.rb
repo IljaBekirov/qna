@@ -14,6 +14,7 @@ class QuestionsController < ApplicationController
     @other_answers = @question.answers.where.not(id: @question.best_answer_id)
     @answer = Answer.new
     @answer.links.new
+    set_gon
   end
 
   def new
@@ -64,6 +65,11 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def set_gon
+    gon.question_id = @question.id
+    gon.current_user_id = current_user&.id
+  end
 
   def publish_question
     return if @question.errors.any?

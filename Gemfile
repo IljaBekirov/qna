@@ -33,6 +33,9 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'mini_racer'
 gem 'slim-rails'
+gem 'gon'
+gem 'handlebars_assets'
+gem 'handlebars-source'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

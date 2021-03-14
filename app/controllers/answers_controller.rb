@@ -5,6 +5,7 @@ class AnswersController < ApplicationController
   before_action :find_question, only: [:create]
   before_action :find_answer, only: %i[show destroy update mark_as_best edit]
   before_action :load_answers, only: %i[create update]
+  after_action :publish_answer, only: :create
 
   def show; end
 
@@ -50,6 +51,16 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def publish_answer
+    return if @answer.errors.any?
+
+    ActionCable.server.broadcast("question_#{@answer.question_id}",
+                                 answer: @answer,
+                                 email: @answer.user.email,
+                                 created_at: @answer.created_at.strftime("%d.%m.%Y %H:%M:%S"),
+                                 links: @answer.links)
+  end
 
   def load_answers
     @question ||= @answer.question
