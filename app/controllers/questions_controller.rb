@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   include Voted
+  include Commented
 
   before_action :authenticate_user!, except: %i[index show]
   before_action :find_question, only: %i[show edit update destroy]
@@ -15,6 +16,7 @@ class QuestionsController < ApplicationController
     @answer = Answer.new
     @answer.links.new
     set_gon
+    @comment = Comment.new
   end
 
   def new

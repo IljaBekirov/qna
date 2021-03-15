@@ -1,0 +1,3 @@
+ul { id="#{resource.type_id}_comments" }
+  - resource&.comments.each do |comment|
+    = render comment, resource: resource

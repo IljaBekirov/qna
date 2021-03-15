@@ -10,9 +10,15 @@ Rails.application.routes.draw do
     end
   end
 
+  concern :commentable do
+    member do
+      post :add_comment
+    end
+  end
+
   resources :files, only: [:destroy]
-  resources :questions, concerns: :voted do
-    resources :answers, concerns: :voted, shallow: true do
+  resources :questions, concerns: %i[voted commentable] do
+    resources :answers, concerns: %i[voted commentable], shallow: true do
       patch :mark_as_best, on: :member
     end
   end
