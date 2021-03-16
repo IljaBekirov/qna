@@ -12,10 +12,17 @@ feature 'User can add comment' do
     end
 
     scenario 'question' do
-      fill_in id: 'comment_body', with: 'New comment'
-      click_on 'Add comment'
+      fill_in id: "comment_body_#{question.type_id}", with: 'New comment'
+      click_on "comment_body_#{question.type_id}"
 
       expect(page).to have_content 'New comment'
+    end
+
+    scenario 'answer' do
+      fill_in id: "comment_body_#{answer.type_id}", with: 'Comment in answer'
+      click_on "comment_body_#{answer.type_id}"
+
+      expect(page).to have_content 'Comment in answer'
     end
   end
 
@@ -32,8 +39,8 @@ feature 'User can add comment' do
       end
 
       Capybara.using_session('user') do
-        fill_in id: 'comment_body', with: 'New comment'
-        click_on 'Add comment'
+        fill_in id: "comment_body_#{answer.type_id}", with: 'New comment'
+        click_on "comment_body_#{answer.type_id}"
 
         expect(page).to have_content 'New comment'
       end

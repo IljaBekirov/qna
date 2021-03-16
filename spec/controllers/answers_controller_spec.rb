@@ -131,4 +131,8 @@ RSpec.describe AnswersController, type: :controller do
   end
 
   it_behaves_like 'voted'
+
+  it_behaves_like 'commented' do
+    let(:commented) { create(:answer, question: question, user: users.last) }
+  end
 end

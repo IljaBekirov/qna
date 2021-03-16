@@ -10,6 +10,15 @@
     = render partial: 'files/file', locals: { resources: resources, action_edit: false }
 
   - if current_user
+    .row
+      .col-2
+      .col-10
+        hr
+        = render 'comments/comments', resource: resources
+        .mt-1.text-right
+          - if current_user
+            = render 'comments/form', resource: resources
+    hr
     br
     = render 'shared/create_at', resources: resources
       br
