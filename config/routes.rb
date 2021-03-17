@@ -11,9 +11,7 @@ Rails.application.routes.draw do
   end
 
   concern :commentable do
-    member do
-      post :add_comment
-    end
+    resources :comments, only: :create, shallow: true
   end
 
   resources :files, only: [:destroy]

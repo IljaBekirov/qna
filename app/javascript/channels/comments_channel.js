@@ -5,7 +5,11 @@ $(document).on('turbolinks:load', function () {
   if (/questions\/\d+/.test(window.location.pathname)) {
 
     let template = require('./templates/comment.hbs')
-    consumer.subscriptions.create({channel: "CommentsChannel"}, {
+    consumer.subscriptions.create("CommentsChannel", {
+      connected: function () {
+        let question_id = gon.question_id;
+        return this.perform('follow', { question_id: question_id});
+      },
 
         received(data) {
           if (gon.current_user_id === data.comment.user_id) return;
