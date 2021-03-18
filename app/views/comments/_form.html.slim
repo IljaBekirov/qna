@@ -1,0 +1,4 @@
+= form_with(model: [resource, @comment || Comment.new], id: "new_comment_#{resource.type_id}", data: { type: :json }, local: false) do |form|
+  .input-group.input-group-sm.mb-3
+    = form.text_field :body, class: 'form-control', id: "comment_body_#{resource.type_id}"
+    = form.submit 'Add comment', class: "btn  btn-sm btn-primary", id: "comment_body_#{resource.type_id}"

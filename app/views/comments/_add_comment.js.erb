@@ -1,0 +1,2 @@
+document.getElementById("<%= @commented.type_id %>_comments").insertAdjacentHTML('beforeend', '<%= j render @comment, resource: @commented %>');
+document.getElementById("new_comment_<%= @commented.type_id %>").getElementsByClassName('form-control')[0].value  = '';

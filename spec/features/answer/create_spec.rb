@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 feature 'User can create answer' do
-  given(:user) { create(:user) }
-  given(:question) { create(:question, user: user) }
+  given(:users) { create_list(:user, 2) }
+  given(:question) { create(:question, user: users.first) }
 
   describe 'Authenticated user' do
     background do
-      sign_in(user)
+      sign_in(users.first)
       visit question_path(question)
     end
 
@@ -33,6 +33,34 @@ feature 'User can create answer' do
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
+    end
+  end
+
+  describe 'multisessions ' do
+    scenario 'added answer from other user', js: true do
+      Capybara.using_session('user') do
+        sign_in(users.first)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('another_user') do
+        sign_in(users.last)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('user') do
+        fill_in 'Body', with: 'Answer for question'
+        click_on 'Answer'
+
+        expect(page).to have_content 'Your answer successfully created.'
+        expect(page).to have_content 'Answer for question'
+      end
+
+      Capybara.using_session('another_user') do
+        expect(page).to have_content 'Answer for question'
+        expect(page).to have_no_link 'Edit'
+        expect(page).to have_no_link 'Delete'
+      end
     end
   end
 

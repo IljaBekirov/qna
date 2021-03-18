@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: %i[index show]
   before_action :find_question, only: %i[show edit update destroy]
+  after_action :publish_question, only: %i[create]
 
   def index
     @questions = Question.all
@@ -13,6 +14,8 @@ class QuestionsController < ApplicationController
     @other_answers = @question.answers.where.not(id: @question.best_answer_id)
     @answer = Answer.new
     @answer.links.new
+    set_gon
+    @comment = Comment.new
   end
 
   def new
@@ -63,6 +66,26 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def set_gon
+    gon.question_id = @question.id
+    gon.current_user_id = current_user&.id
+  end
+
+  def publish_question
+    return if @question.errors.any?
+
+    ActionCable.server.broadcast(
+      'questions',
+      ApplicationController.render(
+        partial: 'questions/question',
+        locals: {
+          question: @question,
+          current_user: current_user
+        }
+      )
+    )
+  end
 
   def find_question
     @question = Question.with_attached_files.find(params[:id])

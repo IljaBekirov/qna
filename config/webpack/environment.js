@@ -10,4 +10,10 @@ environment.plugins.append(
   })
 )
 
+const HandlebarsLoader = {
+  test: /\.hbs$/,
+  loader: 'handlebars-loader'
+}
+environment.loaders.append('hbs', HandlebarsLoader)
+
 module.exports = environment
