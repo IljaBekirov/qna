@@ -30,12 +30,15 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'bootstrap'
 gem 'cocoon'
 gem 'devise'
-gem 'jquery-rails'
-gem 'mini_racer'
-gem 'slim-rails'
 gem 'gon'
 gem 'handlebars_assets'
 gem 'handlebars-source'
+gem 'jquery-rails'
+gem 'mini_racer'
+gem 'omniauth', '~> 1.9', '>= 1.9.1'
+gem 'omniauth-github'
+gem 'omniauth-vkontakte'
+gem 'slim-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,6 +46,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry'
   gem 'rspec-rails', '~> 4.0.2'
+  gem 'letter_opener'
 end
 
 group :development do
@@ -65,6 +69,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'webdrivers'
+  gem 'capybara-email'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
