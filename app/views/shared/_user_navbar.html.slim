@@ -9,6 +9,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-info
           = link_to "Rewards", rewards_path, class: 'nav-link'
     .form-inline.my-2.my-lg-0
       - if user_signed_in?
+        .navbar-text
+          = current_user.email
         = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-secondary ml-2 mr-2'
       - else
         = link_to 'Sign in', new_user_session_path, class: 'btn btn-info ml-2 mr-2'
