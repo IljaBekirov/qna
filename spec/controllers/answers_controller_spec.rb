@@ -105,10 +105,10 @@ RSpec.describe AnswersController, type: :controller do
           expect(answer.body).to eq answer.body
         end
 
-        it 'renders show view' do
+        it 'renders status forbidden' do
           patch :update, params: { id: answer, answer: attributes_for(:answer) }, format: :js
 
-          expect(response).to render_template 'questions/show'
+          expect(response.status).to eq 403
         end
       end
     end
