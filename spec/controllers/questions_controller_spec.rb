@@ -150,8 +150,7 @@ RSpec.describe QuestionsController, type: :controller do
       it 'tries update at another user' do
         patch :update, params: { id: question, question: attributes_for(:question) }
 
-        expect(flash[:error]).to eq 'You are not author of this question'
-        expect(response).to redirect_to questions_path
+        expect(response).to redirect_to root_path
       end
     end
   end
@@ -180,8 +179,7 @@ RSpec.describe QuestionsController, type: :controller do
       it 'show error flash and redirect to questions' do
         delete :destroy, params: { id: question }
 
-        expect(flash[:error]).to eq 'You are not author of this question'
-        expect(response).to redirect_to questions_path
+        expect(response).to redirect_to root_path
       end
     end
   end

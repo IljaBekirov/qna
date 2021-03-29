@@ -16,7 +16,7 @@
         hr
         = render 'comments/comments', resource: resources
         .mt-1.text-right
-          - if current_user
+          -if can?(:create, Comment)
             = render 'comments/form', resource: resources
     hr
     br
@@ -27,7 +27,7 @@
       - if current_user&.author_of?(@question) && @question.best_answer != resources
         = link_to mark_as_best_answer_path(resources), class: "btn btn-outline-success btn-sm", id: "best_#{resources.id}", method: :patch, remote: true do
           i.fas.fa-thumbs-up
-      - if current_user.author_of?(resources)
+      - if can?(:update, resources)
         = link_to '#', class: 'btn btn-outline-warning btn-sm edit-answer-link', data: { answer_id: resources.id } do
           i.fas.fa-edit
           '  Edit

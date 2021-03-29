@@ -7,6 +7,8 @@ class AnswersController < ApplicationController
   before_action :load_answers, only: %i[create update]
   after_action :publish_answer, only: :create
 
+  authorize_resource
+
   def show; end
 
   def new; end
