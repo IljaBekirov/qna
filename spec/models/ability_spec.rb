@@ -24,6 +24,7 @@ RSpec.describe Ability, type: :model do
     let(:other) { create :user }
     let(:question) { create :question, user: user }
     let(:other_question) { create :question, user: other }
+    let!(:vote) { create(:vote, votable: other_question, user: user, value: '1') }
 
     it { should_not be_able_to :manage, :all }
     it { should be_able_to :read, :all }
@@ -37,8 +38,8 @@ RSpec.describe Ability, type: :model do
       it { should be_able_to :destroy, create(:question, user: user) }
       it { should_not be_able_to :destroy, create(:question, user: other) }
 
-      it { should be_able_to [:vote_up, :vote_cancel, :vote_down], create(:question, user: other) }
-      it { should_not be_able_to [:vote_up, :vote_cancel, :vote_down], create(:question, user: user) }
+      it { should be_able_to %i[vote_up vote_down], create(:question, user: other) }
+      it { should_not be_able_to %i[vote_up vote_down], create(:question, user: user) }
     end
 
     context 'Answer' do
@@ -50,8 +51,10 @@ RSpec.describe Ability, type: :model do
       it { should be_able_to :destroy, create(:answer, question: question, user: user) }
       it { should_not be_able_to :destroy, create(:answer, question: question, user: other) }
 
-      it { should be_able_to [:vote_up, :vote_cancel, :vote_down], create(:answer, question: question, user: other) }
-      it { should_not be_able_to [:vote_up, :vote_cancel, :vote_down], create(:answer, question: question, user: user) }
+      it { should be_able_to %i[vote_up vote_down], create(:answer, question: question, user: other) }
+      it { should_not be_able_to %i[vote_up vote_cancel vote_down], create(:answer, question: question, user: user) }
+
+      it { should be_able_to :vote_cancel, other_question, user: user }
 
       it { should be_able_to :mark_as_best, create(:answer, question: question, user: other) }
       it { should_not be_able_to :mark_as_best, create(:answer, question: other_question, user: user) }

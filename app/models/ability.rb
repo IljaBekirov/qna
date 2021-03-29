@@ -41,8 +41,12 @@ class Ability
 
     can :mark_as_best, Answer, question: { user_id: user.id }
 
-    can %i[vote_up vote_down vote_cancel], [Answer, Question] do |votable|
+    can %i[vote_up vote_down], [Answer, Question] do |votable|
       !user.author_of?(votable)
+    end
+
+    can :vote_cancel, [Answer, Question] do |votable|
+      votable.votes.find_by(user: user).present?
     end
   end
 end
