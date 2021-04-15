@@ -6,6 +6,14 @@ Rails.application.routes.draw do
   get '/user/get_email', to: 'users#new'
   post '/user/set_email', to: 'users#create'
 
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [:index] do
+        get :me, on: :collection
+      end
+    end
+  end
+
   concern :voted do
     member do
       patch :vote_up
