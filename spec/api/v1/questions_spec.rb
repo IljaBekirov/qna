@@ -5,7 +5,7 @@ describe 'Questions API', type: :request do
 
   describe 'GET /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
-    let(:method) { :get }
+    let(:verb) { :get }
 
     it_behaves_like 'API Authorizable'
 
@@ -16,7 +16,7 @@ describe 'Questions API', type: :request do
       let(:question_response) { json['questions'].min_by { |q| q['id'] } }
       let!(:answers) { create_list(:answer, 2, question: question) }
 
-      before { do_request(method, api_path, params: { access_token: access_token.token }, headers: headers) }
+      before { do_request(verb, api_path, params: { access_token: access_token.token }, headers: headers) }
 
       it_behaves_like 'Request successful'
 
@@ -66,7 +66,7 @@ describe 'Questions API', type: :request do
       let(:api_path) { "/api/v1/questions/#{question.id}" }
 
       it_behaves_like 'API Authorizable' do
-        let(:method) { :get }
+        let(:verb) { :get }
         let(:api_path) { '/api/v1/questions' }
       end
 
@@ -106,7 +106,7 @@ describe 'Questions API', type: :request do
       let(:api_path) { '/api/v1/questions' }
 
       it_behaves_like 'API Authorizable' do
-        let(:method) { :post }
+        let(:verb) { :post }
       end
 
       context 'authorized' do
@@ -153,7 +153,7 @@ describe 'Questions API', type: :request do
       let(:api_path) { "/api/v1/questions/#{question.id}" }
 
       it_behaves_like 'API Authorizable' do
-        let(:method) { :patch }
+        let(:verb) { :patch }
       end
 
       context 'authorized' do
@@ -233,7 +233,7 @@ describe 'Questions API', type: :request do
       let(:api_path) { "/api/v1/questions/#{question.id}" }
 
       it_behaves_like 'API Authorizable' do
-        let(:method) { :delete }
+        let(:verb) { :delete }
       end
 
       context 'authorized' do

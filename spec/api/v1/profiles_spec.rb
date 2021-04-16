@@ -8,18 +8,18 @@ describe 'Profiles API', type: :request do
 
   describe 'GET /api/v1/profiles/me' do
     it_behaves_like 'API Authorizable' do
-      let(:method) { :get }
+      let(:verb) { :get }
       let(:api_path) { '/api/v1/profiles/me' }
     end
 
     context 'authorized' do
       let(:me) { create(:user) }
       let(:access_token) { create(:access_token, resource_owner_id: me.id) }
-      let(:method) { :get }
+      let(:verb) { :get }
       let(:api_path) { '/api/v1/profiles/me' }
 
       before do
-        do_request(method, api_path, params: { access_token: access_token.token }, headers: headers)
+        do_request(verb, api_path, params: { access_token: access_token.token }, headers: headers)
       end
 
       it_behaves_like 'Request successful'
@@ -40,7 +40,7 @@ describe 'Profiles API', type: :request do
 
   describe 'GET api/v1/profiles' do
     let(:api_path) { '/api/v1/profiles' }
-    let(:method) { :get }
+    let(:verb) { :get }
 
     it_behaves_like 'API Authorizable'
 
@@ -50,7 +50,7 @@ describe 'Profiles API', type: :request do
       let(:access_token) { create(:access_token, resource_owner_id: me.id) }
 
       before do
-        do_request(method, api_path, params: { access_token: access_token.token }, headers: headers)
+        do_request(verb, api_path, params: { access_token: access_token.token }, headers: headers)
       end
 
       it_behaves_like 'Request successful'
