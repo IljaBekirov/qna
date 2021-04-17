@@ -26,11 +26,13 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'active_model_serializers'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'bootstrap'
 gem 'cancancan'
 gem 'cocoon'
 gem 'devise'
+gem 'doorkeeper'
 gem 'gon'
 gem 'handlebars_assets'
 gem 'handlebars-source'
@@ -40,6 +42,7 @@ gem 'omniauth', '~> 1.9', '>= 1.9.1'
 gem 'omniauth-github'
 gem 'omniauth-vkontakte'
 gem 'slim-rails'
+gem 'oj'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
