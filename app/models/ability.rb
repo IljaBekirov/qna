@@ -31,10 +31,10 @@ class Ability
     can :index, User
     can :me, User
 
-    can :create, [Question, Answer, Comment]
+    can :create, [Question, Answer, Comment, Subscription]
 
     can :update, [Question, Answer], user_id: user.id
-    can :destroy, [Question, Answer], user_id: user.id
+    can :destroy, [Question, Answer, Subscription], user_id: user.id
 
     can :destroy, ActiveStorage::Attachment do |file|
       user.author_of?(file.record)

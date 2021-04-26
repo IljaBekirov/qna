@@ -11,4 +11,12 @@ class Answer < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   validates :body, presence: true
+
+  after_create :email_notification
+
+  private
+
+  def email_notification
+    NewAnswerNotificationJob.perform_later(self)
+  end
 end

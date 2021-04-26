@@ -4,6 +4,7 @@ class Question < ApplicationRecord
   include Commentable
 
   has_many :answers, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
   belongs_to :user
   belongs_to :best_answer, class_name: 'Answer', optional: true
   has_one :reward, dependent: :destroy
@@ -16,6 +17,8 @@ class Question < ApplicationRecord
 
   validates :title, :body, presence: true
 
+  after_create :subscribe_to_author!
+
   def mark_as_best(answer)
     transaction do
       update!(best_answer: answer)
@@ -25,5 +28,11 @@ class Question < ApplicationRecord
 
   def other_answers
     answers.where.not(id: best_answer)
+  end
+
+  private
+
+  def subscribe_to_author!
+    subscriptions.create!(user: user)
   end
 end
