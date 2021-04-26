@@ -1,6 +1,10 @@
 h1= @question.title
 p= @question.body
 
+.subscription
+  - if can?(:create, Subscription)
+    = render 'subscriptions/subscription', resource: @question
+
 div.text-right
   = render partial: 'files/file', locals: { resources: @question, action_edit: false }
 

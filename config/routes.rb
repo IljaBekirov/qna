@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :answers, concerns: %i[voted commentable], shallow: true do
       patch :mark_as_best, on: :member
     end
+    resources :subscriptions, only: %i[create destroy], shallow: true
   end
 
   resources :rewards, only: :index

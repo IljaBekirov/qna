@@ -72,5 +72,8 @@ RSpec.describe Ability, type: :model do
       it { should be_able_to :destroy, create(:link, linkable: question) }
       it { should_not be_able_to :destroy, create(:link, linkable: other_question) }
     end
+
+    it { should be_able_to :create, Subscription }
+    it { should be_able_to :destroy, Subscription }
   end
 end
