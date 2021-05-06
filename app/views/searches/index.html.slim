@@ -1,0 +1,4 @@
+h1 Search results:
+hr
+- @results.each do |result|
+  = render partial: result.class.to_s.downcase, locals: { resource: result }

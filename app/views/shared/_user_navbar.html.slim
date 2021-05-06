@@ -7,6 +7,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-info
       - if current_user
         li.nav-item
           = link_to "Rewards", rewards_path, class: 'nav-link'
+    div{ style="padding-right: 10px;" }
+      = render 'searches/search_form'
     .form-inline.my-2.my-lg-0
       - if user_signed_in?
         .navbar-text
