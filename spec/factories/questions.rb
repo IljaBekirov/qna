@@ -14,7 +14,7 @@ FactoryBot.define do
     end
 
     trait :created_at_more_yesterday do
-      created_at { Date.today - 2 }
+      created_at { Date.today - 3 }
     end
   end
 end

@@ -1,0 +1,17 @@
+// Place all the styles related to the Searches controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.d-flex .query {
+  border-radius: 10px;
+  width: auto;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.d-flex .query_sub {
+  width: auto;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
