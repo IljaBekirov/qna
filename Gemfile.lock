@@ -415,6 +415,7 @@ DEPENDENCIES
   gon
   handlebars-source
   handlebars_assets
+  i18n
   jbuilder (~> 2.7)
   jquery-rails
   launchy
